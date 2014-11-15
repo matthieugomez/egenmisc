@@ -51,7 +51,7 @@ when assigning groups, instead of each missing value being considered as a uniqu
 The option {cmd:sort} sort and order the data by the new variable and {it:varname}
 
 {phang2}
-{opth fill(varname)} {cmd:,} {opt t:ime}{cmd:(}{it:varname}{cmd:)} [{opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt roll}{cmd:(}{it:int 0}{cmd:)} {opt rollend}   {opt ifnonconflicting}{cmd:(}{it:varlist}{cmd:)}] {p_end}
+{opth fillmissing(varname)} {cmd:,} {opt t:ime}{cmd:(}{it:varname}{cmd:)} [{opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt roll}{cmd:(}{it:int 0}{cmd:)} {opt rollend}   {opt ifnonconflicting}{cmd:(}{it:varlist}{cmd:)}] {p_end}
 {pmore2}
-creates a variable that corresponds to {it:varname} except that missing values are filled based on non missing observations within groups defined by {it:byvarlist}. With the option {it:roll}=0, missing observations are filled based on nearest time. With the option {it:roll}=3, missing observations are filled forward, based on closest non missing within [time, time -3]. In this case, the option {it:rollends} allows to fill also the first missing values backwards. 
+fills in missing values in  {it:varname} within groups defined by {it:byvarlist}. With no time specified, the mode of non missing value is used (maximum value in case of equality). With the option {it:roll}=0, missing observations are filled based on nearest time. With the option {it:roll}=3, missing observations are filled forward, based on closest non missing within [time, time -3]. In this case, the option {it:rollends} allows to fill also the first missing values backwards. 
 
