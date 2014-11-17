@@ -1,0 +1,8 @@
+d egenmisc
+d {bf: M. Gomez}
+d Distribution-Date: 20141117
+f _gconnect.ado
+f _gcorr.ado
+f _gcov.ado
+f _gfillmissing.ado
+f egenmisc.sthlp
