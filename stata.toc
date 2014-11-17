@@ -1,6 +1,4 @@
 v 3
 d M. Gomez
-p compress compress .dta files
 p egenmisc misc egen functions
-p egensort egen functions that resort data
-p tidy implementation of tidyr in stata
+
