@@ -5,23 +5,19 @@ fillmissing
 
 program define _gfillmissing
 
-	gettoken type 0 : 0
-    gettoken g    0 : 0
-    gettoken eqs  0 : 0
-
-	syntax varname [, BY(varlist) Time(varname) roll(int 0) rollend ifnonconflicting(varlist)]
+	syntax newvarname = /exp [, BY(varlist) Time(varname) roll(int 0) rollend ifnonconflicting(varlist)]
 	qui{
+		local g varlist
 		confirm new variable `g'
-		tempvar  touse t n date var  nr dater timer
-		
+		tempvar varname touse t n date var  nr dater timer
+		gen `varname' = `exp'
 		if "`time'"==""{
 			egen `g' = mode(`varname'), maxmode
 			gen `g' = `varname'
 			bys `by' (`varname'): replace `g' = `varname'[1] if missing(`g')
 		}
 		else{
-
-			assert !missing(`by') & !missing(`time')
+			assert !missing(`time')
 			bys `by' `time': gen `t'=_N
 			cap assert `t'==1
 			if _rc~=0{
@@ -63,7 +59,7 @@ program define _gfillmissing
 					gen `timer'= - `timeo'
 					sort `by' `timer'
 					by `by' : gen `nr' = _n
-					by `by' : gen `nr' = `nr'[_n-1]  if missing(`varname')
+					by `by' : replace `nr' = `nr'[_n-1]  if missing(`varname')
 					by `by' : replace `nr' = . if `nr'~=`nr'[_N]
 					if "`ifnonconflicting'"~=""{
 						foreach v of varlist `ifnonconflicting'{
