@@ -7,14 +7,14 @@ program define _gfillmissing
 
 	syntax newvarname = /exp [, BY(varlist) Time(varname) roll(int 0) rollend ifnonconflicting(varlist)]
 	qui{
-		local g varlist
+		local g `varlist'
 		confirm new variable `g'
 		tempvar varname touse t n date var  nr dater timer
 		gen `varname' = `exp'
 		if "`time'"==""{
-			egen `g' = mode(`varname'), maxmode
+			egen `t' = mode(`varname'), maxmode
 			gen `g' = `varname'
-			bys `by' (`varname'): replace `g' = `varname'[1] if missing(`g')
+			bys `by' (`t'): replace `g' = `t'[1] if missing(`g')
 		}
 		else{
 			assert !missing(`time')
