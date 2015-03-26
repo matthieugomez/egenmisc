@@ -5,7 +5,7 @@ program define _gnacorr
     gettoken eqs  0 : 0
 
 	syntax varlist [if] [, BY(varlist) min(string)]
-	quietly {
+	quietly{
 		confirm new variable `gen'
 		tokenize `varlist'
 
@@ -17,17 +17,16 @@ program define _gnacorr
 		* don't use marksample since you also want to create when varlist is missing
 		mark `touse' `if' `in'
 
-		tempvar touse2
-		gen byte `touse2' = `touse' * !missing(`1') * !missing(`2')
-		bys `by' `touse': gen `count' = sum(`touse2')
-		by `by' `touse' : replace `touse' = 0 if `count'[_N] < `min'
 
-		bys `by' `touse' : gen `mean1' = sum(`1')/`count' if `touse2'
-		by `by' `touse' : gen `var1' = sum((`1'-`mean1'[_N])^2)/`count' if `touse2'
-		by `by' `touse' : gen `mean2' = sum(`2')/`count' if `touse2'
-		by `by' `touse' : gen `var2' = sum((`2'-`mean2'[_N])^2)/`count' if `touse2'
-		by `by' `touse' : gen `type' `corr' = sum((`1'-`mean1'[_N])*(`2'-`mean2'[_N]))/(`count'*sqrt(`var1'[_N]*`var2'[_N]))  if `touse2'
-		by `by' `touse' : gen `type' `gen' = `corr'[_N] if `touse' 
+		tempvar touse2
+		bys `by' `touse': gen `count' = sum(!missing(`1') * !missing(`2'))
+		by `by' `touse' : gen  `touse2'  = (`count'[_N] >= `min') * `touse'
+		bys `by' `touse' : gen `mean1' = sum(`1' * !missing(`2'))/`count' 
+		by `by' `touse' : gen `var1' = sum((`1'-`mean1'[_N])^2*!missing(`2'))/`count'
+		by `by' `touse' : gen `mean2' = sum(`2' * !missing(`1'))/`count'
+		by `by' `touse' : gen `var2' = sum((`2'-`mean2'[_N])^2* !missing(`1'))/`count' 
+		by `by' `touse' : gen `type' `corr' = sum((`1'-`mean1'[_N])*(`2'-`mean2'[_N]))/(`count'*sqrt(`var1'[_N]*`var2'[_N])) 
+		by `by' `touse' : gen `type' `gen' = `corr'[_N] if `touse2' 
 	}
 
 end 
@@ -45,9 +44,9 @@ gen c = _n + 2
 egen temp = corr(b  c), by(a)
 
 replace b = . if _n == 1
-egen temp1 = corr(b  c), by(a)
-egen temp2 = corr(b  c) if _n >50, by(a) 
-egen temp3 = corr(b  c), by(a) min(100)
+egen temp1 = nacorr(b  c), by(a)
+egen temp2 = nacorr(b  c) if _n >50, by(a) 
+egen temp3 = nacorr(b  c), by(a) min(100)
 
  */
 
