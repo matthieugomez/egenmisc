@@ -17,13 +17,13 @@ program define _gnacov
 		* don't use marksample since you also want to create when varlist is missing
 		mark `touse' `if' `in'
 
-		tempvar touse2
 		bys `by' `touse': gen `count' = sum(!missing(`1') * !missing(`2'))
-		by `by' `touse' : gen  `touse2'  = (`count'[_N] >= `min') * `touse'
-
 		bys `by' `touse' : gen `mean1' = sum(`1' * !missing(`2'))/`count' 
 		by `by' `touse' : gen `mean2' = sum(`2' * !missing(`1'))/`count'
 		by `by' `touse' : gen `type' `cov' = sum((`1'-`mean1'[_N])*(`2'-`mean2'[_N]))
+
+		tempvar touse2
+		by `by' `touse' : gen  `touse2'  = (`count'[_N] >= `min') * `touse'
 		by `by' `touse' : gen `type' `gen' = `cov'[_N] if `touse2' 
 	}
 

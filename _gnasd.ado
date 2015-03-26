@@ -19,13 +19,14 @@ program define _gnasd
 		* don't use marksample since I want to create it even when varlist is missing
 		mark `touse' `if' `in'
 
-		tempvar touse2
 		bys `by' `touse': gen `count' = sum(!missing(`v1'))
-		by `by' `touse' : gen  `touse2'  = `count'[_N] >= `min' & `touse'
-
 		by `by' `touse' : gen `mean' = sum(`v1')/`count'
 		by `by' `touse' : gen `type' `var' = sum((`v1'-`mean1'[_N])^2)/`count' 
+
+		tempvar touse2
+		by `by' `touse' : gen  `touse2'  = `count'[_N] >= `min' & `touse'
 		by `by' `touse' : gen `type' `gen' = sqrt(`var'[_N]) if `touse2' 
+
 		/* last condition in case min = 0, and all missing (ie touse2 == 0). i don't want it to give zero */
 	}
 
