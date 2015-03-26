@@ -21,7 +21,7 @@ program define _gnavar
 
 		bys `by' `touse': gen `count' = sum(!missing(`v1'))
 		by `by' `touse' : gen `mean' = sum(`v1')/`count'
-		by `by' `touse' : gen `type' `var' = sum((`v1'-`mean1'[_N])^2)/`count' 
+		by `by' `touse' : gen `type' `var' = sum((`v1'-`mean'[_N])^2)/`count' 
 
 		tempvar touse2
 		by `by' `touse' : gen  `touse2'  = `count'[_N] >= `min' & `touse'
