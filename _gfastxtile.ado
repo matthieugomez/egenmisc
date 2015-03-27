@@ -1,10 +1,4 @@
-*! _gxtile version 1.2 UK 08 Mai 2006
-* categorizes exp by its quantiles - byable
-
-* 1.2: Bug: Opt percentiles were treated incorrectely after implement. of option nq
-*          Allows By-Variables that are strings
-* 1.1: Bug: weights are treated incorectelly in version 1.0. -> fixed
-*     New option nquantiles() implemented                
+*! _gfastxtile version 1.0          
 * 1.0: initial version
 program _gfastxtile, byable(onecall) sortpreserve
 version 8.2
