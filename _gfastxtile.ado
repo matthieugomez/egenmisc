@@ -68,14 +68,9 @@ quietly {
     // With by
     tempvar byvar
     local nby `:word count `by''
-    if `nby'>1{
-        by `touse' `by', sort: gen `byvar' = 1 if _n==1 & `touse'
-        by `touse' (`by'): replace `byvar' = sum(`byvar')
-    }
-    else{
-        sort `touse' `by'
-        local byvar `by'
-    }
+    by `touse' `by', sort: gen `byvar' = 1 if _n==1 & `touse'
+    by `touse' (`by'): replace `byvar' = sum(`byvar')
+
 
     count if `touse'
     local samplesize=r(N)
