@@ -94,8 +94,8 @@ quietly {
         mat `boundaries' = r(boundaries)
         forvalues i = 1/`=r(r)'{
             _pctile `varlist' `weight' in `=`boundaries'[`i',1]'/`=`boundaries'[`i',2]', percentiles(`percnum') `altdef'
+            local j = 1
             foreach p of numlist `percnum' {
-                local j = 1
                 if `j' == 1 {
                     replace `h' = `j' if `varlist' <= r(r`j') in `=`boundaries'[`i',1]'/`=`boundaries'[`i',2]'
                 }
