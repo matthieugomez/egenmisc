@@ -45,15 +45,21 @@ quietly {
     }
     else{
         // With by
-        sort `touse' `by'
+        count if `touse'
+        local samplesize=r(N)
+        local touse_first=_N-`samplesize'+1
+        local touse_last=_N
+
         local nby `: word count `by''
         if `nby' >1 {
+            sort `touse' `by'
             tempvar byvar
             local nby `:word count `by''
-            by `touse' `by', sort: gen `byvar' = 1 if _n==1 & `touse'
-            replace `byvar' = sum(`byvar') if `touse'
+            bys `touse' `by': gen `byvar' = 1 if _n==1 & `touse'
+            replace `byvar' = sum(`byvar') in `touse_first'/`touse_last'
         }
         else{
+          if !(`touse_first'==1 & word("`:sortedby'",1)=="`by'") sort `touse' `by'
             local byvar `by'
             cap confirm numeric variable `by'
             if _rc{
@@ -61,10 +67,7 @@ quietly {
             }
         }
 
-        count if `touse'
-        local samplesize=r(N)
-        local touse_first=_N-`samplesize'+1
-        local touse_last=_N
+   
         mata: `prefix'characterize_unique_vals_sorted("`byvar'", `touse_first', `touse_last', `samplesize')
         tempname boundaries
         mat `boundaries' = r(boundaries)
