@@ -5,7 +5,7 @@ gettoken h    0 : 0
 gettoken eqs  0 : 0
 
 syntax varname(numeric) [if] [in] [, ///
-Percentiles(string) ///
+p(real 50) ///
 Weights(string) ALTdef by(varlist) ]
 
 marksample touse 
@@ -34,7 +34,6 @@ if "`nquantiles'" == ""{
 }
 
 quietly {
-
     gen `type' `h' = .
 
     // Without by
