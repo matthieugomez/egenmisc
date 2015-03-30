@@ -11,9 +11,9 @@ program define _gnasum
 		}
 		tempvar touse count sum
 		mark `touse' `if' `in'
-	   	bys `by' `touse' : gen `sum' = sum(`exp') if `touse'
-	   	by `by' `touse': gen `count' = sum(!missing(`exp')) 
-	   	by `by' `touse' : gen  `type' `gen' = `sum'[_N] if `count'[_N] >= `min'
+	   	bys  `touse' `by': gen `sum' = sum(`exp') if `touse'
+	   	by `touse' `by' : gen `count' = sum(!missing(`exp')) 
+	   	by `touse' `by': gen  `type' `gen' = `sum'[_N] if `count'[_N] >= `min'
 	}
 end 
 

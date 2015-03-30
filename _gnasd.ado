@@ -12,10 +12,10 @@ program define _gnasd
 		tempvar touse count mean sd 
 		mark `touse' `if' `in'
 
-		bys `by' `touse': gen `count' = sum(!missing(`exp'))
-		by `by' `touse' : gen `mean' = sum(`exp')/`count'
-		by `by' `touse' : gen `sd' = sum((`exp'-`mean'[_N])^2)/`count' 
-		by `by' `touse' : gen `type' `gen' = sqrt(`sd'[_N]) if `count'[_N] >= `min' & `touse'
+		bys `touse'  `by': gen `count' = sum(!missing(`exp'))
+		by  `touse' `by': gen `mean' = sum(`exp')/`count'
+		by  `touse' `by': gen `sd' = sum((`exp'-`mean'[_N])^2)/(`count'-1)
+		by  `touse' `by': gen `type' `gen' = sqrt(`sd'[_N]) if `count'[_N] >= `min' & `touse'
 	}
 
 end 
