@@ -70,7 +70,7 @@ quietly {
 		local touse_last=_N
 		if !(`touse_first'==1 & word("`:sortedby'",1)=="`by'")	local stouse `touse'
 		tempvar byover
-		by `stouse' `by' : gen `byover' = _N if _n==1 
+		bys `stouse' `by' : gen `byover' = _N if _n==1 
 		scalar start = `touse_first'
 		while `=start' < `touse_last'{
 			scalar end = `=start' + `=`byover'[`=start']' - 1
