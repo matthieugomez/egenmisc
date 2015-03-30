@@ -12,7 +12,7 @@ program define _gnacov
 		if "`min'"==""{
 			local min 0
 		}
-		tempvar touse dummy count count mean1 var1 mean2 var2 count cov
+		tempvar touse count mean1 var1 mean2 var2 corr
 
 		* don't use marksample since you also want to create when varlist is missing
 		mark `touse' `if' `in'
@@ -25,19 +25,4 @@ program define _gnacov
 	}
 
 end 
-
-
-/* tests
-discard
-clear all
-set obs 100
-gen a  = 1
-gen b = _n
-gen c = _n + 2
-replace b = . if _n == 1
-egen temp = nacov(b  c), by(a)
-egen tempmin = nacov(b  c), by(a) min(100)
- */
-
-
 

@@ -12,7 +12,7 @@ program define _gnacorr
 		if "`min'"==""{
 			local min 0
 		}
-		tempvar touse dummy count count mean1 var1 mean2 var2 count corr
+		tempvar touse count mean1 var1 mean2 var2 corr
 
 		* don't use marksample since you also want to create when varlist is missing
 		mark `touse' `if' `in'

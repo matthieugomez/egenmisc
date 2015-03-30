@@ -9,11 +9,11 @@ program define _gnasum
 		if "`min'"==""{
 			local min 0
 		}
+		tempvar touse count sum
 		mark `touse' `if' `in'
-		tempvar temp count
-	   	bys `by' `touse' : gen `type' `temp' = sum(`exp') if `touse'
+	   	bys `by' `touse' : gen `sum' = sum(`exp') if `touse'
 	   	by `by' `touse': gen `count' = sum(!missing(`exp')) 
-	   	by `by' `touse' : gen  `type' `gen' = `temp'[_N] if `count'[_N] >= `min'
+	   	by `by' `touse' : gen  `type' `gen' = `sum'[_N] if `count'[_N] >= `min'
 	}
 end 
 
