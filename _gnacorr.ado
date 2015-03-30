@@ -16,18 +16,13 @@ program define _gnacorr
 
 		* don't use marksample since you also want to create when varlist is missing
 		mark `touse' `if' `in'
-
-
 		bys `by' `touse': gen `count' = sum(!missing(`1') * !missing(`2'))
 		bys `by' `touse' : gen `mean1' = sum(`1' * !missing(`2'))/`count' 
 		by `by' `touse' : gen `var1' = sum((`1'-`mean1'[_N])^2*!missing(`2'))/`count'
 		by `by' `touse' : gen `mean2' = sum(`2' * !missing(`1'))/`count'
 		by `by' `touse' : gen `var2' = sum((`2'-`mean2'[_N])^2* !missing(`1'))/`count' 
 		by `by' `touse' : gen `type' `corr' = sum((`1'-`mean1'[_N])*(`2'-`mean2'[_N]))/(`count'*sqrt(`var1'[_N]*`var2'[_N])) 
-
-		tempvar touse2
-		by `by' `touse' : gen  `touse2'  = (`count'[_N] >= `min') * `touse'
-		by `by' `touse' : gen `type' `gen' = `corr'[_N] if `touse2' 
+		by `by' `touse' : gen `type' `gen' = `corr'[_N] if (`count'[_N] >= `min') * `touse'
 	}
 
 end 

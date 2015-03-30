@@ -1,28 +1,60 @@
-discard
-clear all
-set obs 3
-gen a  = 1
-gen b = _n
-egen temp = wtsum(a) 
-* 3
-egen temp1 = wtsum(a), aweight(b) 
-* 3
-egen temp2 = wtsum(a), iweight(b) 
-* 6
+version 12.1
+set matastrict on
 
-gen c = a if _n >= 2
-gen d = b if _n >= 3
-egen temp3 = wtsum(c), min(2) 
-*2
-egen temp4 = wtsum(c), min(3)
-egen temp5 = wtsum(c), min(_N )
+mata:
 
-egen temp6 = wtsum(c), min(2) aweight(d)
-egen temp7 = wtsum(c), min(3)  aweight(d)
-egen temp8 = wtsum(c), min(_N)  aweight(d) 
-*3
+    void characterize_unique_vals_sorted(string scalar var, real scalar first, real scalar last, real scalar maxuq) {
+       // Inputs: a numeric variable, a starting & ending obs #, and a maximum number of unique values
+       // Requires: the data to be sorted on the specified variable within the observation boundaries given
+       //             (no check is made that this requirement is satisfied)
+       // Returns: the number of unique values found
+       //         the unique values found
+       //         the observation boundaries of each unique value in the dataset
 
-gen e = . 
-egen temp9 = wtsum(e), aweight(d)
-egen temp10 = wtsum(e), aweight(d)
-egen temp11 = wtsum(e),  aweight(d) 
+
+       // initialize returned results
+       real scalar Nunique
+       Nunique=0
+
+       string matrix values
+       values=J(maxuq,1,.)
+
+       real matrix boundaries
+       boundaries=J(maxuq,2,.)
+
+       // initialize computations
+       real scalar var_index
+       var_index=st_varindex(var)
+
+       string scalar curvalue
+       string scalar prevvalue
+       string scalar curvalue
+
+       // perform computations
+       real scalar obs
+       for (obs=first; obs<=last; obs++) {
+           curvalue=_st_data(obs,var_index)
+          if (obs!=first){
+              if (curvalue!=prevvalue) {
+                 Nunique++
+                 if (Nunique<=maxuq) {
+                    prevvalue=curvalue
+                    values[Nunique,1]=curvalue
+                    boundaries[Nunique,1]=obs
+                    if (Nunique>1) boundaries[Nunique-1,2]=obs-1
+                }
+            }
+            else {
+                exit(error(134))
+            }
+        }
+    }
+boundaries[Nunique,2]=last
+
+// return results
+stata("return clear")
+
+st_numscalar("r(r)",Nunique)
+st_matrix("r(boundaries)",boundaries[1..Nunique,.])
+
+}
