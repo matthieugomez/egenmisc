@@ -10,9 +10,9 @@ program define _gnacov
 		tokenize `varlist'
 
 		if "`min'"==""{
-			local min 0
+			local min 1
 		}
-		tempvar touse count mean1 var1 mean2 var2 corr
+		tempvar touse count mean1 var1 mean2 var2 cov
 
 		* don't use marksample since you also want to create when varlist is missing
 		mark `touse' `if' `in'

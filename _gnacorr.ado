@@ -10,7 +10,7 @@ program define _gnacorr
 		tokenize `varlist'
 
 		if "`min'"==""{
-			local min 0
+			local min 1
 		}
 		tempvar touse count mean1 var1 mean2 var2 corr
 
