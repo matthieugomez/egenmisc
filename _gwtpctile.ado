@@ -51,5 +51,4 @@ program define _gwtpctile
 			}
 		}
 	}
-}
 end
