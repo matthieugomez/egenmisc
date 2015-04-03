@@ -1,5 +1,5 @@
 program _gfastxtile, byable(onecall) sortpreserve
-version 8.2
+version 10
 gettoken type 0 : 0
 gettoken h    0 : 0 
 gettoken eqs  0 : 0
@@ -45,12 +45,9 @@ if "`nquantiles'" == "" & "`percentiles'" == "" {
 }
 
 quietly {
-
 	gen `type' `h' = .
-
-	// Without by
-
 	if "`by'"=="" {
+		// Without by
 		local i 1
 		_pctile `varlist' `weight' if `touse', percentiles(`percnum') `altdef'
 		foreach p of numlist `percnum' {
@@ -63,7 +60,6 @@ quietly {
 	}
 	else{
 		// With by
-
 		count if `touse'
 		local samplesize=r(N)
 		local touse_first=_N-`samplesize'+1
@@ -71,19 +67,19 @@ quietly {
 		if !(`touse_first'==1 & word("`:sortedby'",1)=="`by'")	local stouse `touse'
 		tempvar bylength
 		bys `stouse' `by' : gen `bylength' = _N 
-		scalar start = `touse_first'
-		while `=start' < `touse_last'{
-			scalar end = `=start' + `=`bylength'[`=start']' - 1
-			_pctile `varlist' `weight' in `=start'/`=end', percentiles(`percnum') `altdef'
+		local start = `touse_first'
+		while `start' <= `touse_last'{
+			local end = `start' + `=`bylength'[`start']' - 1
+			_pctile `varlist' `weight' in `start'/`end', percentiles(`percnum') `altdef'
 			local j = 1
 			foreach p of numlist `percnum' {
 				if `j' == 1 {
-					replace `h' = `j' if `varlist' <= r(r`j') in `=start'/`=end'
+					replace `h' = `j' if `varlist' <= r(r`j') in `start'/`end'
 				}
-				replace `h' = `++j' if `varlist' > r(r`--j')  in `=start'/`=end'
+				replace `h' = `++j' if `varlist' > r(r`--j')  in `start'/`end'
 				local j = `j' + 1
 			}
-			scalar start = `=end' + 1
+			local start = `end' + 1
 		}
 	}
 }
