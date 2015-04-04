@@ -45,7 +45,7 @@ program define _gwtpctile
 				while `start' <= `touse_last'{
 					local end  = `start' + `=`bylength'[`start']' - 1
 					_pctile  `x' [aw=`weight'] in `start'/`end', percentiles(`p') `altdef'
-					replace `varlist' = r(r1) in `start'/`end'
+					qui replace `varlist' = r(r1) in `start'/`end'
 					local start = `end' + 1
 				}
 			}
