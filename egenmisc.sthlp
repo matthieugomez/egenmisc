@@ -30,13 +30,13 @@ where depending on the {it:fcn}, {it:arguments} refers to an expression,
 dependent, and where {it:fcn} is
 
 {phang2}
-{opth cov(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
+{opth nacov(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
 {pmore2}
 creates a constant (within {it:byvarlist}) containing the sample covariance of {it:varlist}. 
 The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
 
 {phang2}
-{opth corr(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
+{opth nacorr(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
 {pmore2}
 creates a constant (within {it:byvarlist}) containing the sample correlation of {it:varlist}. 
 The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
