@@ -1,6 +1,7 @@
 program define _gwtpctile
 	version 10, missing
-	syntax newvarname =/exp [if] [in]  [, p(real 50) BY(varlist) ALTdef weight(varname)]
+	syntax newvarname =/exp [if] [in]  [, p(real 50) BY(varlist) ALTdef Weights(varname)]
+
 	if `p'<=0 | `p'>=100 { 
 		di in red "p(`p') must be between 0 and 100"
 		exit 198
@@ -10,12 +11,18 @@ program define _gwtpctile
 
 	if "`altdef'" ~= "" & "`weights'" ~= "" {
 		di as error "weights are not allowed with altdef"
-		exit 111
+		exit 198 
 	}
 
 	quietly {
 		mark `touse' `if' `in'
-		gen double `x' = `exp' if `touse'
+		cap confirm variable `exp'
+		if _rc{
+			gen double `x' = `exp' 
+		}
+		else{
+			local x exp
+		}
 		if "`by'"=="" {
 			_pctile `x' if `touse' `wt', p(`p')
 			gen `typlist' `varlist' = r(r1) if `touse'
@@ -30,7 +37,7 @@ program define _gwtpctile
 			tempvar N
 
 			if "`weight'" == "" & "`altdeft'" == ""{
-				by `stouse' `by': gen long `N' = sum(`x'!=.)
+				bys `stouse' `by': gen long `N' = sum(`x'!=.)
 				local rj "round(`N'[_N]*`p'/100,1)"
 				by `touse' `by': gen `typlist' `varlist' =
 				cond(100*`rj'==`N'[_N]*`p', ///
