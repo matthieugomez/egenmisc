@@ -64,9 +64,8 @@ quietly {
 		local samplesize=r(N)
 		local touse_first=_N-`samplesize'+1
 		local touse_last=_N
-		if !(`touse_first'==1 & word("`:sortedby'",1)=="`by'")	local stouse `touse'
 		tempvar bylength
-		bys `stouse' `by' : gen `bylength' = _N 
+		bys `touse' `by' : gen `bylength' = _N 
 		local start = `touse_first'
 		while `start' <= `touse_last'{
 			local end = `start' + `=`bylength'[`start']' - 1
