@@ -9,3 +9,7 @@ egenmisc adds several functions to egen:
 - `pick v, when()` creates, *for all observations*, a variable equal to the value of `v` at the row where the condition `when` is satisfied. 
 - `connect` computes connected component of several variables, using code from `a2group`. It is very handy to connect different observations in a dataset (for instance create clusters of firms connected by either name, website name or address)
 
+### Installation
+```
+net install egenmisc , from(https://github.com/matthieugomez/stata-egenmisc/raw/master/)
+```
