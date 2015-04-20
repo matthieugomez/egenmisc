@@ -1,4 +1,4 @@
-program define _gwtpctile
+program define _gfastwpctile
 	version 10, missing
 	syntax newvarname =/exp [if] [in]  [, p(real 50) BY(varlist) ALTdef Weights(varname)]
 
@@ -34,11 +34,11 @@ program define _gwtpctile
 			local touse_first = _N - `samplesize' + 1
 			local touse_last = _N
 
-			if "`weight'" == "" & "`altdeft'" == ""{
+			if "`weights'" == "" & "`altdeft'" == ""{
 				tempvar N
-				bys `stouse' `by': gen long `N' = sum(`x'!=.)
+				bys `touse' `by': gen long `N' = sum(`x'!=.)
 				local rj "round(`N'[_N]*`p'/100,1)"
-				by `touse' `by': gen `typlist' `varlist' =
+				by `touse' `by': gen `typlist' `varlist' = ///
 				cond(100*`rj'==`N'[_N]*`p', ///
 					(`x'[`rj']+`x'[`rj'+1])/2, ///
 					`x'[int(`N'[_N]*`p'/100)+1]) if `touse' 
@@ -50,7 +50,7 @@ program define _gwtpctile
 				local start = `touse_first'
 				while `start' <= `touse_last'{
 					local end  = `start' + `=`bylength'[`start']' - 1
-					_pctile  `x' [aw=`weight'] in `start'/`end', percentiles(`p') `altdef'
+					_pctile  `x' [aw=`weights'] in `start'/`end', percentiles(`p') `altdef'
 					qui replace `varlist' = r(r1) in `start'/`end'
 					local start = `end' + 1
 				}
