@@ -1,8 +1,15 @@
 d egenmisc
 d {bf: M. Gomez}
 d Distribution-Date: 20141117
+f _gfastxtile.ado
+f _gfastcorr.ado
+f _gfastwpctile.ado
+f _gnasum.ado
+f _gnamean.ado
+f _gnasd.ado
+f _gnavar.ado
+f _gnacorr.ado
+f _gnacov.ado
 f _gconnect.ado
-f _gcorr.ado
-f _gcov.ado
 f _gfillmissing.ado
 f egenmisc.sthlp
