@@ -1,6 +1,16 @@
-d egenmisc
-d {bf: M. Gomez}
-d Distribution-Date: 20141117
+v 3
+
+d sumup. print summary statistics by group
+d
+d Author: Matthieu Gomez
+d
+d
+d KW: egen egenmore
+d
+d Requires: Stata version 11.2
+d
+d Distribution-Date: 20150330
+d
 f _gfastxtile.ado
 f _gfastcorr.ado
 f _gfastwpctile.ado
@@ -12,4 +22,3 @@ f _gnacorr.ado
 f _gnacov.ado
 f _gconnect.ado
 f _gfillmissing.ado
-f egenmisc.sthlp
