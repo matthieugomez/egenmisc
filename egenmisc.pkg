@@ -1,6 +1,6 @@
 v 3
 
-d sumup. print summary statistics by group
+d egenmisc. misc egen functions
 d
 d Author: Matthieu Gomez
 d
