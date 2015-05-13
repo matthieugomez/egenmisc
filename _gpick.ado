@@ -16,9 +16,15 @@ program define _gpick
 		bys `touse' `by': gen `type' `temp' = `exp' if  (`when') & `touse'
 		cap confirm numeric variable `temp'
 		if _rc == 0{
-			bys `touse' `by' (`temp'): assert `temp' == . if _n == 2
-			by  `touse' `by': replace `temp' = `temp'[1] 
-			rename `temp' `gen'
+			cap bys `touse' `by' (`temp'): assert `temp' == . if _n == 2
+			if _rc{
+				display as error "There are multiple observations satisfying the condition"
+				exit
+			}
+			else{
+				by  `touse' `by': replace `temp' = `temp'[1] 
+				rename `temp' `gen'
+			}
 		}
 		else{
 			bys `touse' `by' (`temp'): assert `temp' == . if _n == _N - 1
