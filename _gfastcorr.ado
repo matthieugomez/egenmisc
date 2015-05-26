@@ -64,7 +64,8 @@ else{
 	local touse_first=_N-`samplesize'+1
 	local touse_last=_N
 	tempvar bylength
-	bys `touse' `by' : gen `bylength' = _N 
+	local type = cond(c(N)>c(maxlong), "double", "long")
+	bys `touse' `by' : gen `type' `bylength' = _N 
 	local start = `touse_first'
 	while `start' <= `touse_last'{
 		local end = `start' + `=`bylength'[`start']' - 1
