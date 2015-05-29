@@ -9,13 +9,13 @@ program define _gnasd
 		if "`min'"==""{
 			local min 0
 		}
-		tempvar touse count mean sd 
+		tempvar touse count mean var
 		mark `touse' `if' `in'
 
 		bys `touse'  `by': gen `count' = sum(!missing(`exp'))
 		by  `touse' `by': gen `mean' = sum(`exp')/`count'
-		by  `touse' `by': gen `sd' = sum((`exp'-`mean'[_N])^2)/(`count'-1)
-		by  `touse' `by': gen `type' `gen' = sqrt(`sd'[_N]) if `count'[_N] >= `min' & `touse'
+		by  `touse' `by': gen `var' = sum((`exp'-`mean'[_N])^2)/(`count'[_N]-1)
+		by  `touse' `by': gen `type' `gen' = sqrt(`var'[_N]) if `count'[_N] >= `min' & `touse'
 	}
 
 end 
