@@ -53,8 +53,12 @@ program define _gconnect
 		dis  as text "Final groups = "in ye %9.0gc `genn' 
 	end
 
-
-	/* from now on, slighlty different version of a2group */
+/***************************************************************************************************
+From now on, slighlty different version of a2group 
+A2REG: Stata module to estimate models with two fixed effects
+Amine Ouazad
+***************************************************************************************************/
+	/* from now on,*/
 	cap program drop a2group2
 	program define a2group2, sortpreserve
 		syntax ,  individual(varname) unit(varname) groupvar(name)
