@@ -18,15 +18,14 @@ program define _gfastwpctile
 		mark `touse' `if' `in'
 		cap confirm variable `exp'
 		if _rc{
-			gen double `x' = `exp' 
+			gen double `x' = `exp' if `touse'
 		}
 		else{
 			local x exp
 		}
 		if "`by'"=="" {
-			_pctile `x' if `touse' `wt', p(`p')
+			_pctile `x' `weights' if `touse', p(`p') `altdef'
 			gen `typlist' `varlist' = r(r1) if `touse'
-
 		}
 		else{
 			count if `touse'
@@ -34,28 +33,19 @@ program define _gfastwpctile
 			local touse_first = _N - `samplesize' + 1
 			local touse_last = _N
 
-			if "`weights'" == "" & "`altdeft'" == ""{
-				tempvar N
-				bys `touse' `by': gen long `N' = sum(`x'!=.)
-				local rj "round(`N'[_N]*`p'/100,1)"
-				by `touse' `by': gen `typlist' `varlist' = ///
-				cond(100*`rj'==`N'[_N]*`p', ///
-					(`x'[`rj']+`x'[`rj'+1])/2, ///
-					`x'[int(`N'[_N]*`p'/100)+1]) if `touse' 
+
+			gen `typlist' `varlist' = .
+			tempvar bylength
+			local type = cond(c(N)>c(maxlong), "double", "long")
+			bys `touse' `by' : gen `type' `bylength' = _N 
+			local start = `touse_first'
+			while `start' <= `touse_last'{
+				local end  = `start' + `=`bylength'[`start']' - 1
+				_pctile  `x' `weights' in `start'/`end', percentiles(`p') `altdef'
+				qui replace `varlist' = r(r1) in `start'/`end'
+				local start = `end' + 1
 			}
-			else{
-				gen `typlist' `varlist' = .
-				tempvar bylength
-				local type = cond(c(N)>c(maxlong), "double", "long")
-				bys `touse' `by' : gen `type' `bylength' = _N 
-				local start = `touse_first'
-				while `start' <= `touse_last'{
-					local end  = `start' + `=`bylength'[`start']' - 1
-					_pctile  `x' [aw=`weights'] in `start'/`end', percentiles(`p') `altdef'
-					qui replace `varlist' = r(r1) in `start'/`end'
-					local start = `end' + 1
-				}
-			}
+			
 		}
 	}
 end
