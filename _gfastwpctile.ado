@@ -10,8 +10,11 @@ program define _gfastwpctile
 
 
 	if "`altdef'" ~= "" & "`weights'" ~= "" {
-		di as error "weights are not allowed with altdef"
-		exit 198 
+		local optweights "[aweight=`weights']"
+		if "`altdef'" != "" { 
+			di as error "weights are not allowed with altdef"
+			exit 198 
+		}
 	}
 
 	quietly {
@@ -24,7 +27,7 @@ program define _gfastwpctile
 			local x exp
 		}
 		if "`by'"=="" {
-			_pctile `x' `weights' if `touse', p(`p') `altdef'
+			_pctile `x' `optweights' if `touse', p(`p') `altdef'
 			gen `typlist' `varlist' = r(r1) if `touse'
 		}
 		else{
@@ -41,7 +44,7 @@ program define _gfastwpctile
 			local start = `touse_first'
 			while `start' <= `touse_last'{
 				local end  = `start' + `=`bylength'[`start']' - 1
-				_pctile  `x' `weights' in `start'/`end', percentiles(`p') `altdef'
+				_pctile  `x' `optweights' in `start'/`end', percentiles(`p') `altdef'
 				qui replace `varlist' = r(r1) in `start'/`end'
 				local start = `end' + 1
 			}
