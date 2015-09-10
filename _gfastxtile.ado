@@ -1,3 +1,8 @@
+/***************************************************************************************************
+original code from egenmore 
+https://ideas.repec.org/c/boc/bocode/s386401.html
+***************************************************************************************************/
+
 program _gfastxtile, byable(onecall) sortpreserve
 version 10
 gettoken type 0 : 0

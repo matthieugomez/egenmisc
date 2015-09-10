@@ -1,3 +1,8 @@
+/***************************************************************************************************
+original code from egenmore 
+https://ideas.repec.org/c/boc/bocode/s386401.html
+***************************************************************************************************/
+
 program define _gfastwpctile
 	version 10, missing
 	syntax newvarname =/exp [if] [in]  [, p(real 50) BY(varlist) ALTdef Weights(varname)]

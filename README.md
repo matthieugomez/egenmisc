@@ -12,11 +12,6 @@ egenmisc adds several functions to egen:
 net install egenmisc , from(https://github.com/matthieugomez/stata-egenmisc/raw/master/)
 ```
 
-Install using 
-
-```
-net install  https://rawgit.com/matthieugomez/stata-compress/master/compress.pkg
-```
 If you have a version of Stata < 13, you need to install it manually
 
 1. Click the "Download ZIP" button in the right column to download a zipfile. 

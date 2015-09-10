@@ -1,8 +1,7 @@
-*! NJGW 09jun2005
-*! syntax:  [by varlist:] egen newvar = var1 var2 [if exp] [in exp] 
-*!           [ , covariance spearman taua taub ]
-*! computes correlation (or covariance, or spearman correlation) between var1 and var2, optionally by: varlist
-*!    and stores the result in newvar.
+/***************************************************************************************************
+original code from egenmore 
+https://ideas.repec.org/c/boc/bocode/s386401.html
+***************************************************************************************************/
 program define _gfastcorr
 	version 8
 
