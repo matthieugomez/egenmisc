@@ -4,10 +4,13 @@
 {vieweralsosee "[D] egen" "help egen"}{...}
 {vieweralsosee "[D] egenmore" "help egenmore"}{...}
 {viewerjumpto "Syntax" "misc##syntax"}{...}
+{viewerjumpto "References" "misc##references"}{...}
+{viewerjumpto "Contact" "misc##contact"}{...}
+
 {title:Title}
 
 {p2colset 5 17 19 2}{...}
-{p2col :{manlink D egenmisc} {hline 2}} Misc egen functions. In particular, faster xtile, pctile, cov than {help egenmore##:egenmore}.
+{p2col :{manlink D egenmisc} {hline 2}} Misc egen functions.
 {p_end}
 {p2colreset}{...}
 
@@ -36,6 +39,7 @@ like {help egenmore##:pctile} but faster.
 {pmore2}
 like {help egenmore##:xtile} but faster.
 
+
 {phang2}
 {opth nacorr(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
 {pmore2}
@@ -61,6 +65,12 @@ creates a constant (within {it:byvarlist}) containing the sample standard deviat
 The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
 
 {phang2}
+{opth nasum(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
+{pmore2}
+creates a constant (within {it:byvarlist}) containing the sum of {it:varlist}. 
+The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
+
+{phang2}
 {opth navar(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
 {pmore2}
 creates a constant (within {it:byvarlist}) containing the sample variance of {it:varlist}. 
@@ -72,4 +82,22 @@ The option min sets the new variable to "." when there are less than {it:num} ob
 creates a constant (within {it:byvarlist}) containing the value of expr for the row satisfying  {it:condition}. 
 
 
+{marker references}{...}
+{title:References}
+The function {cmd:fastxtile} and {cmd:fastpctile} borrow heavily from equivalent commands in {cmd:egenmore}.
+
+
+{marker contact}{...}
+{title:Author}
+
+{phang}
+Matthieu Gomez
+
+{phang}
+Department of Economics, Princeton University
+
+{phang}
+Please report issues on Github
+{browse "https://github.com/matthieugomez/stata-egenmisc":https://github.com/matthieugomez/stata-egenmisc}
+{p_end}
 
