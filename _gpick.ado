@@ -1,7 +1,7 @@
 program define _gpick
 
 
-	syntax newvarname =/exp [if] [in][, BY(varlist) when(string)]
+	syntax newvarname =/exp [if] [in], BY(varlist) [when(string)]
 	qui{
 		tempvar touse temp
 		local gen `varlist'
@@ -14,17 +14,17 @@ program define _gpick
 			cap bys `touse' `by' (`temp'): assert `temp' == . if _n == 2
 			if _rc{
 				display as error "There are multiple observations satisfying the condition"
-				exit
 			}
-			else{
-				by  `touse' `by': replace `temp' = `temp'[1] 
-				rename `temp' `gen'
-			}
+			by  `touse' `by': replace `temp' = `temp'[1] 
+		
 		}
 		else{
-			bys `touse' `by' (`temp'): assert `temp' == . if _n == _N - 1
+			cap bys `touse' `by' (`temp'): assert missing(`temp') if _n == _N - 1
+			if _rc{
+				display as error "There are multiple observations satisfying the condition"
+			}
 			by  `touse' `by': replace `temp' = `temp'[_N] 
-			rename `temp' `gen'
 		}
+		rename `temp' `gen'
 	}
 end
