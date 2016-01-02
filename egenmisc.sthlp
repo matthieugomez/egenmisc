@@ -7,7 +7,7 @@
 {title:Title}
 
 {p2colset 5 17 19 2}{...}
-{p2col :{manlink D egenmisc} {hline 2}} Misc egen functions. Includes faster ways to compute xtile, pctile, cov within groups.
+{p2col :{manlink D egenmisc} {hline 2}} Misc egen functions. In particular, faster xtile, pctile, cov than {help egenmore##:egenmore}.
 {p_end}
 {p2colreset}{...}
 
@@ -29,12 +29,12 @@ dependent.
 {opth fastwpctile(varname)} [{cmd:,} {cmdab:p:ercentiles(}{it:numlist}{cmd:)} {cmdab:w:eights(}{it:varname}{cmd:)} {cmdab:alt:def} {cmd:by(}{it:byvarlist}{cmd:)}]
 {p_end}
 {pmore2}
-like wpctile but faster.
+like {help egenmore##:pctile} but faster.
 
 {phang2}
 {opth fastxtile(varname)}[{cmd:,} {cmdab:p:ercentiles(}{it:numlist}{cmd:)} {cmdab:n:quantiles(}{it:#}{cmd:)} {cmdab:w:eights(}{it:varname}{cmd:)} {cmdab:alt:def} {cmd:by(}{it:byvarlist}{cmd:)}] {p_end}
 {pmore2}
-like xtile but faster.
+like {help egenmore##:xtile} but faster.
 
 {phang2}
 {opth nacorr(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
