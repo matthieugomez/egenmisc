@@ -1,4 +1,4 @@
-program define _gnacov
+program define _gfastcov
 
 	gettoken type 0 : 0
     gettoken gen    0 : 0
@@ -20,7 +20,7 @@ program define _gnacov
 		by `by' `touse' : gen `mean1' = sum(`1' * !missing(`2'))/`count' 
 		by `by' `touse' : gen `mean2' = sum(`2' * !missing(`1'))/`count'
 		by `by' `touse' : gen `type' `cov' = sum((`1'-`mean1'[_N])*(`2'-`mean2'[_N]))
-		by `by' `touse' : gen `type' `gen' = `cov'[_N]/(`count'[_N]-1) if `count'[_N] >= `min' * `touse'
+		by `by' `touse' : gen `type' `gen' = `cov'[_N]/(`count'[_N]-1) if `count'[_N] >= `min' & `touse'
 	}
 
 end 

@@ -1,4 +1,4 @@
-program define _gnavar
+program define _gfastvar
 
 	syntax newvarname =/exp [if] [in] [, BY(varlist) min(string)]
 	quietly {

@@ -1,6 +1,6 @@
 v 3
 d Matthieu Gomez, Princeton University (mattg@princeton.edu)
-p egenmisc EGENMISC - misc egen functions
+p egenmisc EGENMISC - faster egen functions
 
 * l word-to-show path-or-url [description]
 * t: Directories within site:

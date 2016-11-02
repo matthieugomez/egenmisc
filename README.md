@@ -1,9 +1,5 @@
-egenmisc includes several functions for egen:
-- `fastxtile` is a faster version of `xtile` in `egenmore`.
-- `fastwpctile` is a faster version of `wpctile` in `egenmore`.
-- `nasum`, `namean`, `nasd`, `navar`,   `nacorr` and `nacov` allow to compute the sum, mean, sd, variance, covariance and correlation of variables by group. When less than `min` observations are used to compute the statistics, the output is replaced by a missing value.
-`nacorr`, `nacov` are much faster than the `corr` function in `egenmore`.
-- `pick v, when()` creates, *for all observations*, a variable equal to the value of `v` at the row where the condition `when` is satisfied. 
+egenmisc includes several functions for egen which are faster than the versions from `egenmore`
+
 
 ### Installation
 `egenmisc` is now available on SSC. 

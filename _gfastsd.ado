@@ -1,4 +1,4 @@
-program define _gnasd
+program define _gfastsd
 
 	syntax newvarname =/exp [if] [in] [, BY(varlist) min(string)]
 	quietly {

@@ -39,53 +39,29 @@ like {help egenmore##:pctile} but faster.
 {pmore2}
 like {help egenmore##:xtile} but faster.
 
-
 {phang2}
-{opth nacorr(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
+{opth fastcorr(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
 {pmore2}
 creates a constant (within {it:byvarlist}) containing the sample correlation of {it:varlist}. 
 The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
 
 {phang2}
-{opth nacov(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
+{opth fastcov(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
 {pmore2}
 creates a constant (within {it:byvarlist}) containing the sample covariance of {it:varlist}. 
 The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
 
 {phang2}
-{opth namean(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
-{pmore2}
-creates a constant (within {it:byvarlist}) containing the sample mean of {it:varlist}. 
-The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
-
-{phang2}
-{opth nasd(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
+{opth fastsd(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
 {pmore2}
 creates a constant (within {it:byvarlist}) containing the sample standard deviation of {it:varlist}. 
 The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
 
 {phang2}
-{opth nasum(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
-{pmore2}
-creates a constant (within {it:byvarlist}) containing the sum of {it:varlist}. 
-The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
-
-{phang2}
-{opth navar(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
+{opth fastvar(varlist)} [{cmd:,} {opt by}{cmd:(}{it:byvarlist}{cmd:)} {opt min}{cmd:(}{it:num}{cmd:)}]{p_end}
 {pmore2}
 creates a constant (within {it:byvarlist}) containing the sample variance of {it:varlist}. 
 The option min sets the new variable to "." when there are less than {it:num} observations such that both variables in {it:varlist} are non missing.
-
-{phang2}
-{cmd: pick(expr)} {cmd:,} {opt when}{cmd:(}{it:condition}{cmd:)} {cmd:by(}{it:byvarlist}{cmd:)} {p_end}
-{pmore2}
-creates a constant (within {it:byvarlist}) containing the value of expr for the row satisfying  {it:condition}. 
-
-
-{marker references}{...}
-{title:References}
-The function {cmd:fastxtile} and {cmd:fastpctile} borrow heavily from equivalent commands in {cmd:egenmore}.
-
 
 {marker contact}{...}
 {title:Author}
