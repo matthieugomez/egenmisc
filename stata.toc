@@ -1,9 +1,3 @@
 v 3
-d Matthieu Gomez, Princeton University (mattg@princeton.edu)
+d Matthieu Gomez, Columbia University
 p egenmisc EGENMISC - faster egen functions
-
-* l word-to-show path-or-url [description]
-* t: Directories within site:
-* t path [description]
-* Packages:
-* p pkgname [description]

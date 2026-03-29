@@ -1,21 +1,20 @@
 v 3
 
-d egenmisc. misc egen functions
+d egenmisc. Faster egen functions
 d
-d Author: Matthieu Gomez
+d Author: Matthieu Gomez, Columbia University
 d
 d
 d KW: egen egenmore
 d
 d Requires: Stata version 11.2
 d
-d Distribution-Date: 20150330
+d Distribution-Date: 20260328
 d
 f _gfastxtile.ado
 f _gfastwpctile.ado
-f _gnasum.ado
-f _gnamean.ado
-f _gnasd.ado
-f _gnavar.ado
-f _gnacorr.ado
-f _gnacov.ado
+f _gfastcorr.ado
+f _gfastcov.ado
+f _gfastsd.ado
+f _gfastvar.ado
+f egenmisc.sthlp

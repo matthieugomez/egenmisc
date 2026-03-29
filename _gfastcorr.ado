@@ -1,4 +1,4 @@
-program define _gnacorr
+program define _gfastcorr
 
 	gettoken type 0 : 0
     gettoken gen    0 : 0
@@ -12,16 +12,17 @@ program define _gnacorr
 		if "`min'"==""{
 			local min 1
 		}
-		tempvar touse count mean1 var1 mean2 var2 cov
+		tempvar touse count mean1 mean2 cov var1 var2
 
 		* don't use marksample since you also want to create when varlist is missing
 		mark `touse' `if' `in'
 		bys `by' `touse': gen `count' = sum(!missing(`1') * !missing(`2'))
-		by `by' `touse' : gen `mean1' = sum(`1' * !missing(`2'))/`count' 
+		by `by' `touse' : gen `mean1' = sum(`1' * !missing(`2'))/`count'
 		by `by' `touse' : gen `mean2' = sum(`2' * !missing(`1'))/`count'
-		by `by' `touse' : gen `type' `cov' = sum((`1'-`mean1'[_N])*(`2'-`mean2'[_N]))
-		by `by' `touse' : gen `type' `gen' = sqrt(`cov'[_N]/(`count'[_N]-1)) if `count'[_N] >= `min' * `touse'
+		by `by' `touse' : gen double `cov' = sum((`1'-`mean1'[_N])*(`2'-`mean2'[_N]))
+		by `by' `touse' : gen double `var1' = sum((`1'-`mean1'[_N])^2 * !missing(`2'))
+		by `by' `touse' : gen double `var2' = sum((`2'-`mean2'[_N])^2 * !missing(`1'))
+		by `by' `touse' : gen `type' `gen' = `cov'[_N] / sqrt(`var1'[_N] * `var2'[_N]) if `count'[_N] >= `min' & `touse'
 	}
 
-end 
-
+end
