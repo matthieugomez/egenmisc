@@ -47,7 +47,7 @@ ssc install egenmisc
 To install the latest version from Github (Stata 13+):
 
 ```stata
-net install egenmisc, from("https://raw.githubusercontent.com/matthieugomez/egenmisc/master/")
+net install egenmisc, from("https://raw.githubusercontent.com/matthieugomez/egenmisc/main/")
 ```
 
 For Stata 12 or older, download the zip file and install from a local folder:
